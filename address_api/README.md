@@ -4,6 +4,7 @@
 * Install Python 3.9 - https://www.python.org. Make sure to add PIP to Path
 * Install packages - Open command prompt and navigate to requirements.txt file, then run following command - pip install -r requirements.txt
 ## Commands to run the app
+* Important! Please change line 3 in api/main.py with path where repo is cloned, if you want to run the app with command from command prompt.
 * Open command prompt, navigate to folder where main.py is located(api/main.py) and then run command python main.py
 ## Testing
 * There are unit tests for each endpoint in tests folder
