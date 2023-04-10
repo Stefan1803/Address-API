@@ -1,3 +1,7 @@
+# This part is added to be able to run the app from command prompt. Please change it!
+import sys
+sys.path.append("C://Users//Stefan//Desktop//address_api")
+
 from fastapi import FastAPI, Response, Depends, HTTPException
 from model.api.model import UpdateAddressSchema, CreateAddressSchema
 from model.database.model import Address, Base
