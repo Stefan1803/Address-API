@@ -214,5 +214,47 @@ def get_address(latitude: float, longitude: float, distance: float, db: Session 
     return df.to_dict(orient='records')
 
 
+# BONUS - additional solution for endpoint /get_address, using library geopy(install it with command pip install geopy)
+'''
+import geopy.distance
+
+@app.get("/get_address", tags=["GET"])
+def get_address(latitude: float, longitude: float, distance: float, db: Session = Depends(get_db)):
+    '''
+    Provides all addresses in range of given distance from the point of given latitude and longitude
+    '''
+
+    if latitude > 90 or latitude < -90:
+        raise HTTPException(
+            status_code=422,
+            detail="Latitude must be between -90 and 90"
+        )
+    if longitude < -180 or longitude > 180:
+        raise HTTPException(
+            status_code=422,
+            detail="Longitude must be between -180 and 180"
+        )
+
+    try:
+        data = db.query(Address).all()
+        print(type(data))
+        print(list(data))
+    except Exception as e:
+        print(e)
+        raise HTTPException(
+            status_code=500,
+            detail="No response from database."
+        )
+
+    addresses_within_distance = []
+
+    for location in data:
+        if geopy.distance.distance((latitude, longitude), (location.latitude, location.longitude)).km <= distance:
+            addresses_within_distance.append(location)
+    return addresses_within_distance
+
+'''
+
+
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True)
