@@ -220,9 +220,9 @@ import geopy.distance
 
 @app.get("/get_address", tags=["GET"])
 def get_address(latitude: float, longitude: float, distance: float, db: Session = Depends(get_db)):
-    '''
+    """
     Provides all addresses in range of given distance from the point of given latitude and longitude
-    '''
+    """
 
     if latitude > 90 or latitude < -90:
         raise HTTPException(
